@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מדריך NotebookLM למורים</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            font-family: 'Assistant', sans-serif;
+        }
+        .animation-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Custom scrollbar for pre blocks */
+        pre::-webkit-scrollbar {
+            height: 8px;
+            width: 8px;
+        }
+        pre::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+        }
+        pre::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+        }
+        pre::-webkit-scrollbar-thumb:hover {
+            background: rgba(255,255,255,0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-slate-100 text-slate-800">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-l from-indigo-700 to-blue-600 text-white shadow-lg pb-16 pt-10 px-4 text-center rounded-b-[3rem] relative">
+        <div class="flex flex-col items-center justify-center max-w-2xl mx-auto">
+            <img 
+                src="pic.png" 
+                alt="אריאל קלפנר" 
+                class="w-24 h-24 md:w-28 md:h-28 rounded-full border-4 border-white/80 shadow-xl mb-4 object-cover bg-indigo-100"
+                onerror="this.src='https://ui-avatars.com/api/?name=אריאל+קלפנר&background=4f46e5&color=fff&size=128'"
+            />
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight drop-shadow-md">
+                איך להפוך מחברת לבוט חכם
+            </h1>
+            <p class="text-xl md:text-2xl font-light text-indigo-100">
+                המדריך הטכנו-פדגוגי המלא ליצירת סוכני בינה מלאכותית ב-NotebookLM
+            </p>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <div class="max-w-5xl mx-auto px-4 -mt-8 relative z-10 w-full">
+        <div class="flex flex-wrap md:flex-nowrap justify-center bg-white rounded-2xl shadow-xl p-2 gap-2 border border-slate-200">
+            <button onclick="switchTab('learn')" id="btn-learn" class="tab-btn flex-1 py-3 px-4 rounded-xl flex items-center justify-center gap-2 font-bold transition-all text-sm md:text-base bg-indigo-100 text-indigo-700 shadow-sm">
+                <i data-lucide="book-open" class="w-5 h-5"></i> 8 העקרונות
+            </button>
+            <button onclick="switchTab('build')" id="btn-build" class="tab-btn flex-1 py-3 px-4 rounded-xl flex items-center justify-center gap-2 font-bold transition-all text-sm md:text-base text-slate-500 hover:bg-slate-50 hover:text-slate-700">
+                <i data-lucide="wand-2" class="w-5 h-5"></i> מחולל אינטראקטיבי
+            </button>
+            <button onclick="switchTab('examples')" id="btn-examples" class="tab-btn flex-1 py-3 px-4 rounded-xl flex items-center justify-center gap-2 font-bold transition-all text-sm md:text-base text-slate-500 hover:bg-slate-50 hover:text-slate-700">
+                <i data-lucide="library" class="w-5 h-5"></i> ספריות ודוגמאות
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-5xl mx-auto px-4 py-12 w-full">
+        
+        <!-- TAB 1: LEARN (8 Principles) -->
+        <div id="tab-learn" class="tab-content animation-fade-in">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-slate-800 mb-4">האנטומיה של הבוט החינוכי המושלם</h2>
+                <p class="text-lg text-slate-600 max-w-3xl mx-auto">
+                    להלן 8 העקרונות המנחים, שנלקחו מתוך מסמכי ההדרכה. עקרונות אלו יהפכו כל מחברת בסיסית לסביבת למידה חכמה ואינטראקטיבית. לחצו על כל שלב להסבר נוסף.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="principles-container">
+                <!-- Principles injected via JS -->
+            </div>
+        </div>
+
+        <!-- TAB 2: BUILD (Interactive Generator) -->
+        <div id="tab-build" class="tab-content animation-fade-in hidden">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-slate-800 mb-4">בנה את הפרומפט שלך</h2>
+                <p class="text-lg text-slate-600 max-w-3xl mx-auto">
+                    בחרו את ההגדרות הרצויות והמערכת תיצור עבורכם "הוראות מערכת" (System Instructions) מוכנות להעתקה והדבקה אל תוך ה-NotebookLM שלכם.
+                </p>
+            </div>
+            
+            <!-- Prompt Builder -->
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden flex flex-col lg:flex-row">
+                <!-- Form Area -->
+                <div class="p-8 lg:w-1/2 bg-slate-50 border-l border-slate-200">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                        <i data-lucide="wand-2" class="w-6 h-6 text-indigo-600"></i> מחולל הפרומפטים
+                    </h2>
+                    
+                    <div class="space-y-5 text-right">
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">שם הבוט / הדמות:</label>
+                            <input type="text" id="botName" placeholder="למשל: יועץ פדגוגי, שרלוק, המורה אריאל" class="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-right shadow-sm" />
+                        </div>
+              
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 mb-1">קהל יעד:</label>
+                                <select id="audience" class="w-full p-3 border border-slate-300 rounded-lg text-right outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm">
+                                    <option value="מורים">מורים</option>
+                                    <option value="תלמידי יסודי">תלמידי יסודי</option>
+                                    <option value="תלמידי תיכון">תלמידי תיכון</option>
+                                    <option value="צוות הנהלה">צוות הנהלה</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 mb-1">טון אישיות:</label>
+                                <select id="personaTone" class="w-full p-3 border border-slate-300 rounded-lg text-right outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm">
+                                    <option value="מקצועי ומעצים">מקצועי ומעצים</option>
+                                    <option value="סוקרטי (שואל שאלות)">סוקרטי (שואל שאלות)</option>
+                                    <option value="הומוריסטי וקליל">הומוריסטי וקליל</option>
+                                    <option value="אקדמי ורשמי">אקדמי ורשמי</option>
+                                </select>
+                            </div>
+                        </div>
+              
+                        <div class="pt-2">
+                            <h3 class="text-sm font-semibold text-slate-700 mb-2">אילו מצבי פעולה (Modes) לשלב?</h3>
+                            <div class="space-y-2">
+                                <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-slate-200 rounded-md transition-colors justify-start flex-row-reverse">
+                                    <span class="text-slate-700">שיח ושאלות רגילות (#שיח)</span>
+                                    <input type="checkbox" id="chkChat" checked class="w-4 h-4 text-indigo-600 rounded" />
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-slate-200 rounded-md transition-colors justify-start flex-row-reverse">
+                                    <span class="text-slate-700">תכנון מערכי שיעור (#שיעור)</span>
+                                    <input type="checkbox" id="chkLesson" class="w-4 h-4 text-indigo-600 rounded" />
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-slate-200 rounded-md transition-colors justify-start flex-row-reverse">
+                                    <span class="text-slate-700">בוחן אינטראקטיבי (#מבחן)</span>
+                                    <input type="checkbox" id="chkQuiz" class="w-4 h-4 text-indigo-600 rounded" />
+                                </label>
+                            </div>
+                        </div>
+              
+                        <div class="pt-2 border-t border-slate-200">
+                            <label class="flex items-center justify-between cursor-pointer p-2 bg-indigo-50 rounded-md mb-2 flex-row-reverse">
+                                <span class="font-semibold text-indigo-900">אילוץ: למידה שלב-אחר-שלב 🛑</span>
+                                <input type="checkbox" id="chkStepByStep" checked class="w-5 h-5 text-indigo-600 rounded border-indigo-300" />
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer p-2 bg-indigo-50 rounded-md flex-row-reverse">
+                                <span class="font-semibold text-indigo-900">הצג תפריט פתיחה וניווט 📋</span>
+                                <input type="checkbox" id="chkMenu" checked class="w-5 h-5 text-indigo-600 rounded border-indigo-300" />
+                            </label>
+                        </div>
+              
+                        <button onclick="generatePrompt()" class="w-full mt-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition-transform transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2">
+                            <i data-lucide="wand-2" class="w-5 h-5"></i> צור פרומפט עכשיו
+                        </button>
+                    </div>
+                </div>
+              
+                <!-- Output Area -->
+                <div class="p-8 lg:w-1/2 bg-slate-900 text-slate-200 relative flex flex-col">
+                    <div class="flex items-center justify-between mb-4 flex-row-reverse">
+                        <h2 class="text-xl font-bold text-indigo-300 flex items-center gap-2 flex-row-reverse">
+                            <i data-lucide="code-2" class="w-5 h-5"></i> התוצאה שלך:
+                        </h2>
+                        <button id="copyPromptBtn" onclick="copyGeneratedPrompt()" class="hidden flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-slate-700 hover:bg-slate-600 text-white">
+                            <i data-lucide="copy" class="w-4 h-4 icon-copy"></i>
+                            <i data-lucide="check" class="w-4 h-4 icon-check hidden text-green-400"></i>
+                            <span id="copyPromptText">העתק טקסט</span>
+                        </button>
+                    </div>
+              
+                    <div class="flex-grow bg-slate-800 rounded-xl p-4 border border-slate-700 overflow-y-auto">
+                        <pre id="promptOutput" class="hidden text-slate-300 whitespace-pre-wrap font-mono text-sm text-right leading-relaxed" dir="rtl"></pre>
+                        
+                        <div id="emptyState" class="h-full flex flex-col items-center justify-center text-slate-500 opacity-60">
+                            <i data-lucide="wand-2" class="w-12 h-12 mb-3"></i>
+                            <p>מלא את הטופס מימין ולחץ על "צור פרומפט"</p>
+                            <p class="text-sm mt-2">הפרומפט שייווצר יתאים להדבקה ב-NotebookLM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: EXAMPLES -->
+        <div id="tab-examples" class="tab-content animation-fade-in hidden space-y-8">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-slate-800 mb-4">פרומפטים להשראה</h2>
+                <p class="text-lg text-slate-600 max-w-3xl mx-auto">
+                    דוגמאות אמיתיות מתוך מאגר חומרי הלמידה שלכם. ניתן להעתיק, ללמוד מהמבנה, ולשפר.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 gap-8" id="examples-container">
+                <!-- Examples injected via JS -->
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer Area -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-sm border-t-4 border-indigo-600 shadow-inner mt-auto">
+        <div class="max-w-4xl mx-auto px-4">
+            <p class="mb-2 font-medium">
+                כל הזכויות שמורות לאריאל קלפנר - בינה מלאכותית, טכנופדגוגיה והערכה בחינוך - 0509540538 © <span id="currentYear"></span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Set current year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Data for Principles
+        const principles = [
+            {
+                id: 1,
+                title: 'פרסונה מערכתית (System Persona)',
+                icon: 'brain',
+                description: 'הגדרת "מי הוא" הבוט וכיצד הוא מדבר. הענקת אופי מובחן למודל – מעצים, אקדמי, או אפילו דמות היסטורית.',
+                pedagogicalValue: 'לומדים מתחברים טוב יותר לדמות מובחנת. לדוגמה, יועץ טכנו-פדגוגי או מורה סוקרטי ששואל שאלות מנחות במקום לתת תשובות.',
+                example: 'אתה "התבונה שמאחורי המודל" — יועץ ומומחה טכנו-פדגוגי בכיר למדידה. מקצועי, מעצים, קולגיאלי וידידותי. אתה מדבר בגובה העיניים כשותף לחשיבה פדגוגית.'
+            },
+            {
+                id: 2,
+                title: 'פקודת אתחול ותפריט (Startup)',
+                icon: 'message-square',
+                description: 'הנחיה שמכריחה את הבוט להכווין את המשתמש מהשנייה הראשונה באמצעות הצגת תפריט ברור.',
+                pedagogicalValue: 'מונע "חרדת דף חלק" אצל התלמידים. התלמיד יודע מיד מהן האפשרויות העומדות בפניו (למשל: בחר 1 לתרגול, 2 למשחק).',
+                example: '🚨 הנחיית אתחול קריטית: בכל פעם שהמשתמש פותח צ\'אט חדש, או מקליד את התו . (נקודה), עליך להציג מיד ובאופן בלעדי את "תפריט הפתיחה של המחברת".'
+            },
+            {
+                id: 3,
+                title: 'מצבי פעולה (Modes)',
+                icon: 'layers',
+                description: 'יצירת "ערוצים" נפרדים בתוך אותה מחברת, המופעלים על ידי פקודות ספציפיות כמו #תרגול או #מערך_שיעור.',
+                pedagogicalValue: 'מאפשר לאותה מחברת לשמש גם ככלי ליצירת מבחנים למורה, וגם ככלי ללמידה עצמית לתלמיד, בהתאם למצב שנבחר.',
+                example: 'כאשר המשתמש מקליד #ACTIVITY (מצב פעילות) - עליך לעצב סדנא חווייתית באורך של 90 דקות. כאשר הוא מקליד #MATCH (מצב התאמה) - עזור לו להתאים מודל.'
+            },
+            {
+                id: 4,
+                title: 'אינטראקטיביות (Step-by-Step)',
+                icon: 'stop-circle',
+                description: 'בלימת המודל מ"להקיא" את כל המידע בבת אחת. הבוט מציג שלב -> עוצר -> המשתמש מגיב -> ממשיכים.',
+                pedagogicalValue: 'למידה פעילה! המודל לא פותר עבור התלמיד את הבעיה, אלא מנחה אותו צעד-אחר-צעד ודורש ממנו חשיבה אקטיבית באמצע.',
+                example: '🛑 עצור והמתן לתגובת המשתמש. אל תמשיך, אל תסכם ואל תציג את השלבים הבאים מראש. רק לאחר התגובה, עבור לשלב הבא.'
+            },
+            {
+                id: 5,
+                title: 'הכתבת מבנה פלט (Output Structure)',
+                icon: 'layout-template',
+                description: 'הגדרת הצורה הוויזואלית שבה המידע מוצג: כותרות, טבלאות, אימוג\'י ובלוקים של קוד.',
+                pedagogicalValue: 'הפחתת עומס קוגניטיבי. מידע שמוצג בטבלה או עם אייקונים (כמו 🎯 מטרות, 💡 רציונל) נספג מהר יותר וקל יותר להתמצאות.',
+                example: 'מבנה התוצר שיש להפיק: כותרת השיעור (עם אימוג\'י), מיפוי מיומנויות (בנקודות), ומהלך השיעור (טבלה מחולקת לדקות).'
+            },
+            {
+                id: 6,
+                title: 'עיגון במקורות (Grounding)',
+                icon: 'library',
+                description: 'שאיבת התוכן והתשובות אך ורק מחומרי הלימוד (ה-Sources) שהוזנו למחברת.',
+                pedagogicalValue: 'מונע "הזיות" (Hallucinations) ומבטיח שהתלמידים נשענים על חומרי הלימוד המאומתים של המורה ולא על מידע אקראי מהרשת.',
+                example: 'שאב השראה, דמויות, נושאים ודוגמאות מתוך חומרי המחברת של המשתמש בלבד כדי להפוך את החומרים לרלוונטיים ומדויקים.'
+            },
+            {
+                id: 7,
+                title: 'אילוצים קשיחים (Constraints)',
+                icon: 'shield-alert',
+                description: 'הגדרת גבולות ברורים (חוקי ברזל) כגון: אורך התשובה, שפת התשובה, איסור על מתן פתרונות ועוד.',
+                pedagogicalValue: 'שומר על מסגרת פדגוגית בריאה. למשל: "לעולם אל תחשוף את התשובה הסופית" או "הקפד על כתיבה מימין לשמאל".',
+                example: 'חוקי ברזל: שמור על תגובות קצרות (עד 150 מילים). לוגיקה עיצובית ימין-שמאל (RTL). לעולם אל תשבור דמות.'
+            },
+            {
+                id: 8,
+                title: 'שימור מצב וזיכרון (Persistence)',
+                icon: 'save',
+                description: 'הזיכרון של הבוט לאורך השיחה והיכולת לשמור על רצף (למשל ספירת צעדים או ניקוד).',
+                pedagogicalValue: 'מאפשר יצירת סימולציות מורכבות, חדרי בריחה לימודיים, ותהליכי חקר מתמשכים שבהם ההתקדמות נשמרת.',
+                example: 'לאחר כל שלב, הצג שורת סטטוס: 🕵️ תיק חקירה | צעד [X] מתוך 10 | 🔎 רמזים שנמצאו: [N]'
+            }
+        ];
+
+        // Data for Examples
+        const examples = [
+            {
+                id: 'pedagogy',
+                title: 'ממודל לתבונה (למורים)',
+                content: `אתה "התבונה שמאחורי המודל" — יועץ ומומחה טכנו-פדגוגי בכיר למדידה, הערכה ומנהיגות חינוכית במערכת החינוך הישראלית.
+
+התפקיד שלך הוא ללוות מורים ולהנגיש עבורם 8 מודלי ליבה. 
+מאפייני האישיות: מקצועי, מעצים, מדבר בגובה העיניים כשותף לחשיבה פדגוגית.
+
+יש לך 4 מצבי פעולה:
+- #DEFAULT: תשובות כלליות מחומרי המקור.
+- #MATCH: התאמת מודל לאתגר החינוכי שהמורה מתאר.
+- #PRACTICE: ליווי מעשי שלב-אחר-שלב של המורה בתכנון (🛑 עצור אחרי כל שלב!).
+- #OUTPUT: מחולל תוצרי הערכה (שאלון, מחוון).
+
+🚨 הנחיית אתחול: בכל פעם שהמשתמש מקליד "תפריט" או ".", הצג את התפריט הבא:
+🎓 ברוכים הבאים למחברת הפדגוגית. בחר נתיב:
+#DEFAULT - מידע כללי
+#MATCH - התאמת מודל
+#PRACTICE - ליווי מעשי
+
+אילוצים: 
+1. דבר תמיד בעברית תקנית.
+2. הקפד על יישור וכיווניות ימין-שמאל (RTL).`
+            },
+            {
+                id: 'sherlock',
+                title: 'שרלוק הולמס (משחק חקר)',
+                content: `You have two modes: DEFAULT MODE and GAME MODE. You start in DEFAULT MODE.
+
+MODE: GAME MODE
+You are THE NARRATOR, a witty, theatrical, and slightly sardonic game master running an interactive mystery game based on the Notebook sources.
+
+GAME RULES:
+1. The player has exactly 10 STEPS to solve the case.
+2. A STEP is consumed each time the player takes an ACTION.
+3. 🛑 Always stop and wait for the player to input their action.
+4. After each step, ALWAYS display the STATUS BAR: 
+   🕵️ CASE FILE | Step [X] of 10 | 🔎 Clues found: [N] | 👥 Suspects: [N]
+
+PLAYER ACTIONS:
+- 🗣️ QUESTION [suspect]
+- 🔍 EXAMINE [location]
+- ⚡ ACCUSE [suspect]
+
+CONSTRAINTS:
+- Draw on the user's notebook sources for characters and facts.
+- Never reveal the answer directly until the player accuses.
+- Keep responses concise (150-300 words).`
+            }
+        ];
+
+        // Render Principles
+        const principlesContainer = document.getElementById('principles-container');
+        principles.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'border border-slate-200 rounded-xl overflow-hidden mb-4 bg-white shadow-sm transition-all duration-200 hover:shadow-md';
+            card.innerHTML = `
+                <button onclick="toggleAccordion(this)" class="w-full flex items-center justify-between p-5 text-right bg-white hover:bg-slate-50 focus:outline-none">
+                    <div class="flex items-center gap-4">
+                        <div class="p-3 bg-indigo-50 rounded-lg shrink-0">
+                            <i data-lucide="${p.icon}" class="w-6 h-6 text-indigo-500"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-800 text-right">${p.id}. ${p.title}</h3>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-down" class="w-5 h-5 text-slate-500 accordion-icon-down"></i>
+                    <i data-lucide="chevron-up" class="w-5 h-5 text-slate-500 accordion-icon-up hidden"></i>
+                </button>
+                <div class="accordion-content hidden p-5 border-t border-slate-100 bg-slate-50 text-right">
+                    <p class="text-slate-700 mb-4 text-lg leading-relaxed">${p.description}</p>
+                    <div class="bg-white rounded-lg p-4 border border-indigo-100 mb-4 shadow-sm">
+                        <h4 class="font-semibold text-indigo-700 mb-2 flex items-center gap-2 justify-end flex-row-reverse">
+                            <i data-lucide="graduation-cap" class="w-5 h-5"></i> הערך הפדגוגי
+                        </h4>
+                        <p class="text-slate-600 leading-relaxed">${p.pedagogicalValue}</p>
+                    </div>
+                    <div class="bg-slate-800 text-slate-200 rounded-lg p-4 font-mono text-sm shadow-inner" dir="rtl">
+                        <h4 class="text-slate-400 mb-2 font-sans text-xs uppercase tracking-wider flex flex-row-reverse justify-end">דוגמה מפרומפט המקור:</h4>
+                        <p class="leading-relaxed whitespace-pre-line text-right border-r-2 border-indigo-500 pr-3">${p.example}</p>
+                    </div>
+                </div>
+            `;
+            principlesContainer.appendChild(card);
+        });
+
+        // Render Examples
+        const examplesContainer = document.getElementById('examples-container');
+        examples.forEach(ex => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden text-right';
+            
+            // Note: Using a safe id for the text content to be copied
+            const contentId = `example-content-${ex.id}`;
+            
+            wrapper.innerHTML = `
+                <div class="bg-slate-100 p-4 border-b border-slate-200 flex justify-between items-center">
+                    <h3 class="font-bold text-lg text-slate-800 flex items-center gap-2">
+                        <i data-lucide="code-2" class="w-5 h-5 text-indigo-600"></i> ${ex.title}
+                    </h3>
+                    <button onclick="copyTextById('${contentId}', this)" class="text-sm font-medium text-indigo-600 hover:text-indigo-800 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors">
+                        <i data-lucide="copy" class="w-4 h-4"></i> <span class="copy-label">העתק טקסט</span>
+                    </button>
+                </div>
+                <div class="p-0">
+                    <pre id="${contentId}" class="bg-slate-800 text-slate-300 p-6 font-mono text-sm overflow-x-auto text-right whitespace-pre-wrap leading-relaxed" dir="rtl">${ex.content}</pre>
+                </div>
+            `;
+            examplesContainer.appendChild(wrapper);
+        });
+
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            // Hide all contents
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            
+            // Reset button styles
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = "tab-btn flex-1 py-3 px-4 rounded-xl flex items-center justify-center gap-2 font-bold transition-all text-sm md:text-base text-slate-500 hover:bg-slate-50 hover:text-slate-700";
+            });
+
+            // Show selected content
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+            
+            // Highlight selected button
+            const activeBtn = document.getElementById(`btn-${tabId}`);
+            activeBtn.className = "tab-btn flex-1 py-3 px-4 rounded-xl flex items-center justify-center gap-2 font-bold transition-all text-sm md:text-base bg-indigo-100 text-indigo-700 shadow-sm";
+        }
+
+        // Accordion Logic
+        function toggleAccordion(btn) {
+            const content = btn.nextElementSibling;
+            const iconDown = btn.querySelector('.accordion-icon-down');
+            const iconUp = btn.querySelector('.accordion-icon-up');
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                iconDown.classList.add('hidden');
+                iconUp.classList.remove('hidden');
+            } else {
+                content.classList.add('hidden');
+                iconDown.classList.remove('hidden');
+                iconUp.classList.add('hidden');
+            }
+        }
+
+        // Prompt Generation Logic
+        function generatePrompt() {
+            const botName = document.getElementById('botName').value || 'המורה המלווה';
+            const audience = document.getElementById('audience').value;
+            const personaTone = document.getElementById('personaTone').value;
+            
+            const chkChat = document.getElementById('chkChat').checked;
+            const chkLesson = document.getElementById('chkLesson').checked;
+            const chkQuiz = document.getElementById('chkQuiz').checked;
+            const chkStepByStep = document.getElementById('chkStepByStep').checked;
+            const chkMenu = document.getElementById('chkMenu').checked;
+
+            let prompt = `הגדרת תפקיד (System Persona):\n`;
+            prompt += `אתה עוזר וירטואלי חכם בשם "${botName}". קהל היעד שלך הוא: ${audience}.\n`;
+            prompt += `טון הדיבור שלך הוא: ${personaTone}.\n\n`;
+
+            prompt += `חוקים ואילוצים קשיחים (Constraints):\n`;
+            prompt += `1. ענה תמיד בעברית ברורה ותקנית.\n`;
+            prompt += `2. התבסס אך ורק על חומרי המקור (Sources) שהועלו למחברת.\n`;
+            
+            if (chkStepByStep) {
+                prompt += `3. 🛑 חוק האינטראקטיביות: לעולם אל תציג את כל המידע בבת אחת. הנחה את הלומד שלב-אחר-שלב, ועצור כדי להמתין לתשובתו לפני מעבר לשלב הבא.\n`;
+            }
+
+            if (chkMenu) {
+                prompt += `\nהנחיית אתחול ותפריט:\n`;
+                prompt += `בכל פעם שהמשתמש מקליד "תפריט" או ".", הצג לו את התפריט הבא וייצר מבנה אסתטי וברור:\n`;
+                prompt += `ברוכים הבאים! בחר את אופן הפעולה הרצוי:\n`;
+                if (chkChat) prompt += `- 💬 #שיח - לשאלות ותשובות רגילות מתוך החומר.\n`;
+                if (chkLesson) prompt += `- 📝 #שיעור - ליצירת מערך שיעור מובנה.\n`;
+                if (chkQuiz) prompt += `- 🎯 #מבחן - לתרגול אינטראקטיבי של החומר.\n`;
+            }
+
+            const activeModes = [chkChat, chkLesson, chkQuiz].filter(Boolean).length;
+            if (activeModes > 0) {
+                prompt += `\nמצבי פעולה (Modes):\n`;
+                if (chkChat) prompt += `כאשר המשתמש בוחר #שיח - ענה לשאלותיו באופן תמציתי ומדויק.\n`;
+                if (chkLesson) prompt += `כאשר המשתמש בוחר #שיעור - בקש ממנו את נושא השיעור, ולאחר מכן הפק מערך שיעור הכולל פתיחה, גוף (בחלוקה לדקות) וסיכום.\n`;
+                if (chkQuiz) prompt += `כאשר המשתמש בוחר #מבחן - שאל אותו בכל פעם שאלה אחת בלבד מתוך החומר. המתן לתשובתו, בדוק אותה, תן משוב מעצים, ועבור לשאלה הבאה.\n`;
+            }
+
+            // UI Update
+            document.getElementById('promptOutput').textContent = prompt;
+            document.getElementById('emptyState').classList.add('hidden');
+            document.getElementById('promptOutput').classList.remove('hidden');
+            document.getElementById('copyPromptBtn').classList.remove('hidden');
+        }
+
+        // Copy Text Helper (for dynamic prompt)
+        function copyGeneratedPrompt() {
+            const text = document.getElementById('promptOutput').textContent;
+            copyToClipboardRaw(text, document.getElementById('copyPromptBtn'), 'copyPromptText');
+        }
+
+        // Copy Text Helper (for examples)
+        function copyTextById(elementId, btnElement) {
+            const text = document.getElementById(elementId).textContent;
+            const labelEl = btnElement.querySelector('.copy-label');
+            copyToClipboardRaw(text, btnElement, null, labelEl);
+        }
+
+        // Core Copy Function (uses textarea fallback for iframe support)
+        function copyToClipboardRaw(text, btnElement, textElementId = null, labelEl = null) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                
+                // Visual feedback
+                if (textElementId) {
+                    document.getElementById(textElementId).textContent = "הועתק!";
+                    btnElement.classList.replace('bg-slate-700', 'bg-green-500/20');
+                    btnElement.classList.replace('text-white', 'text-green-400');
+                    btnElement.querySelector('.icon-copy').classList.add('hidden');
+                    btnElement.querySelector('.icon-check').classList.remove('hidden');
+                } else if (labelEl) {
+                    labelEl.textContent = "הועתק!";
+                }
+
+                setTimeout(() => {
+                    if (textElementId) {
+                        document.getElementById(textElementId).textContent = "העתק טקסט";
+                        btnElement.classList.replace('bg-green-500/20', 'bg-slate-700');
+                        btnElement.classList.replace('text-green-400', 'text-white');
+                        btnElement.querySelector('.icon-copy').classList.remove('hidden');
+                        btnElement.querySelector('.icon-check').classList.add('hidden');
+                    } else if (labelEl) {
+                        labelEl.textContent = "העתק טקסט";
+                    }
+                }, 2000);
+                
+            } catch (err) {
+                console.error('Failed to copy', err);
+                alert("ההעתקה נכשלה, אנא נסה שנית.");
+            }
+            document.body.removeChild(textArea);
+        }
+    </script>
+</body>
+</html>
