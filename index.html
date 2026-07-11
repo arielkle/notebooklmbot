@@ -25,57 +25,57 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        /* Custom scrollbar for pre blocks */
-        pre::-webkit-scrollbar {
+        /* Custom scrollbar for dark mode */
+        ::-webkit-scrollbar {
             height: 8px;
             width: 8px;
         }
-        pre::-webkit-scrollbar-track {
-            background: rgba(255,255,255,0.1);
+        ::-webkit-scrollbar-track {
+            background: #1e293b; /* slate-800 */
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155; /* slate-700 */
             border-radius: 4px;
         }
-        pre::-webkit-scrollbar-thumb {
-            background: rgba(255,255,255,0.2);
-            border-radius: 4px;
-        }
-        pre::-webkit-scrollbar-thumb:hover {
-            background: rgba(255,255,255,0.3);
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569; /* slate-600 */
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col bg-slate-100 text-slate-800">
+<body class="min-h-screen flex flex-col bg-slate-900 text-slate-300">
 
-    <!-- Header -->
-    <header class="bg-gradient-to-l from-indigo-700 to-blue-600 text-white shadow-lg pb-16 pt-10 px-4 text-center rounded-b-[3rem] relative">
+    <!-- Header (Minimalist for Dark Theme) -->
+    <header class="bg-slate-950 text-white shadow-lg pb-14 pt-8 px-4 text-center border-b border-slate-800 relative">
         <div class="flex flex-col items-center justify-center max-w-2xl mx-auto">
             <img 
                 src="./pic.png" 
                 alt="אריאל קלפנר" 
-                class="w-24 h-24 md:w-28 md:h-28 rounded-full border-4 border-white/80 shadow-xl mb-4 object-cover bg-indigo-100"
-                onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=אריאל+קלפנר&background=4f46e5&color=fff&size=128'"
+                class="w-20 h-20 md:w-24 md:h-24 rounded-full border-2 border-rose-500 shadow-lg shadow-rose-500/20 mb-3 object-cover bg-slate-800"
+                onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=אריאל+קלפנר&background=f43f5e&color=fff&size=128'"
             />
-            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight drop-shadow-md">
-                איך להפוך מחברת לבוט חכם
-            </h1>
-            <p class="text-xl md:text-2xl font-light text-indigo-100">
-                המדריך הטכנו-פדגוגי המלא ליצירת סוכני בינה מלאכותית ב-NotebookLM
+            <p class="text-lg md:text-xl font-light text-slate-400">
+                המדריך הטכנו-פדגוגי המלא ליצירת סוכני בינה מלאכותית
             </p>
         </div>
     </header>
 
     <!-- Navigation Tabs -->
-    <div class="max-w-5xl mx-auto px-4 -mt-8 relative z-10 w-full">
-        <div class="flex flex-wrap md:flex-nowrap justify-center bg-white rounded-2xl shadow-xl p-2 gap-2 border border-slate-200">
-            <button onclick="switchTab('learn')" id="btn-learn" class="tab-btn flex-1 py-3 px-4 rounded-xl flex items-center justify-center gap-2 font-bold transition-all text-sm md:text-base bg-indigo-100 text-indigo-700 shadow-sm">
+    <div class="max-w-5xl mx-auto px-4 -mt-7 relative z-10 w-full">
+        <div class="flex flex-wrap md:flex-nowrap justify-center bg-slate-800 rounded-2xl shadow-xl p-2 gap-2 border border-slate-700">
+            <!-- New Home Tab -->
+            <button onclick="switchTab('home')" id="btn-home" class="tab-btn flex-1 py-3 px-4 rounded-xl flex items-center justify-center gap-2 font-bold transition-all text-sm md:text-base bg-rose-500/20 text-rose-400 shadow-sm border border-rose-500/30">
+                <i data-lucide="home" class="w-5 h-5"></i> ראשי
+            </button>
+            <button onclick="switchTab('learn')" id="btn-learn" class="tab-btn flex-1 py-3 px-4 rounded-xl flex items-center justify-center gap-2 font-bold transition-all text-sm md:text-base text-slate-400 hover:bg-slate-700 hover:text-slate-200 border border-transparent">
                 <i data-lucide="book-open" class="w-5 h-5"></i> 8 העקרונות
             </button>
-            <button onclick="switchTab('build')" id="btn-build" class="tab-btn flex-1 py-3 px-4 rounded-xl flex items-center justify-center gap-2 font-bold transition-all text-sm md:text-base text-slate-500 hover:bg-slate-50 hover:text-slate-700">
+            <button onclick="switchTab('build')" id="btn-build" class="tab-btn flex-1 py-3 px-4 rounded-xl flex items-center justify-center gap-2 font-bold transition-all text-sm md:text-base text-slate-400 hover:bg-slate-700 hover:text-slate-200 border border-transparent">
                 <i data-lucide="wand-2" class="w-5 h-5"></i> מחולל אינטראקטיבי
             </button>
-            <button onclick="switchTab('examples')" id="btn-examples" class="tab-btn flex-1 py-3 px-4 rounded-xl flex items-center justify-center gap-2 font-bold transition-all text-sm md:text-base text-slate-500 hover:bg-slate-50 hover:text-slate-700">
-                <i data-lucide="library" class="w-5 h-5"></i> ספריות ודוגמאות
+            <button onclick="switchTab('examples')" id="btn-examples" class="tab-btn flex-1 py-3 px-4 rounded-xl flex items-center justify-center gap-2 font-bold transition-all text-sm md:text-base text-slate-400 hover:bg-slate-700 hover:text-slate-200 border border-transparent">
+                <i data-lucide="library" class="w-5 h-5"></i> דוגמאות
             </button>
-            <button onclick="switchTab('presentation')" id="btn-presentation" class="tab-btn flex-1 py-3 px-4 rounded-xl flex items-center justify-center gap-2 font-bold transition-all text-sm md:text-base text-slate-500 hover:bg-slate-50 hover:text-slate-700">
+            <button onclick="switchTab('presentation')" id="btn-presentation" class="tab-btn flex-1 py-3 px-4 rounded-xl flex items-center justify-center gap-2 font-bold transition-all text-sm md:text-base text-slate-400 hover:bg-slate-700 hover:text-slate-200 border border-transparent">
                 <i data-lucide="monitor-play" class="w-5 h-5"></i> מצגת
             </button>
         </div>
@@ -84,47 +84,66 @@
     <!-- Main Content Area -->
     <main class="flex-grow max-w-5xl mx-auto px-4 py-12 w-full">
         
+        <!-- TAB 0: HOME (Landing Page) -->
+        <div id="tab-home" class="tab-content animation-fade-in">
+            <div class="text-center flex flex-col items-center justify-center pt-4 pb-10">
+                <h1 class="text-5xl md:text-7xl font-extrabold mb-10 tracking-tight text-transparent bg-clip-text bg-gradient-to-l from-rose-400 to-teal-400 drop-shadow-lg leading-tight py-2">
+                    איך להפוך מחברת לבוט חכם
+                </h1>
+                
+                <div class="rounded-3xl overflow-hidden shadow-2xl shadow-teal-500/10 border border-slate-700 max-w-5xl w-full bg-slate-800 p-2 relative group">
+                    <!-- Glow effect behind image -->
+                    <div class="absolute -inset-1 bg-gradient-to-r from-rose-500 to-teal-500 rounded-3xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+                    <img 
+                        src="./notebookpic.png" 
+                        alt="Teachers Change Lives - NotebookLM" 
+                        class="relative w-full h-auto object-cover rounded-2xl"
+                    />
+                </div>
+            </div>
+        </div>
+
         <!-- TAB 1: LEARN (8 Principles) -->
-        <div id="tab-learn" class="tab-content animation-fade-in">
+        <div id="tab-learn" class="tab-content animation-fade-in hidden">
             <div class="text-center mb-10">
-                <h2 class="text-3xl font-bold text-slate-800 mb-4">האנטומיה של הבוט החינוכי המושלם</h2>
-                <p class="text-lg text-slate-600 max-w-3xl mx-auto">
+                <h2 class="text-3xl font-bold text-slate-100 mb-4">האנטומיה של הבוט החינוכי המושלם</h2>
+                <p class="text-lg text-slate-400 max-w-3xl mx-auto">
                     להלן 8 העקרונות המנחים, שנלקחו מתוך מסמכי ההדרכה. עקרונות אלו יהפכו כל מחברת בסיסית לסביבת למידה חכמה ואינטראקטיבית. לחצו על כל שלב להסבר נוסף.
                 </p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="principles-container">
-                <!-- Principles injected via JS -->
+                <!-- Principles injected via JS with Dark Theme styling -->
             </div>
         </div>
 
         <!-- TAB 2: BUILD (Interactive Generator) -->
         <div id="tab-build" class="tab-content animation-fade-in hidden">
             <div class="text-center mb-8">
-                <h2 class="text-3xl font-bold text-slate-800 mb-4">בנה את הפרומפט שלך</h2>
-                <p class="text-lg text-slate-600 max-w-3xl mx-auto">
+                <h2 class="text-3xl font-bold text-slate-100 mb-4">בנה את הפרומפט שלך</h2>
+                <p class="text-lg text-slate-400 max-w-3xl mx-auto">
                     בחרו את ההגדרות הרצויות והמערכת תיצור עבורכם "הוראות מערכת" (System Instructions) מוכנות להעתקה והדבקה אל תוך ה-NotebookLM שלכם.
                 </p>
             </div>
             
             <!-- Prompt Builder -->
-            <div class="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden flex flex-col lg:flex-row">
+            <div class="bg-slate-800 rounded-2xl shadow-xl border border-slate-700 overflow-hidden flex flex-col lg:flex-row">
                 <!-- Form Area -->
-                <div class="p-8 lg:w-1/2 bg-slate-50 border-l border-slate-200">
-                    <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
-                        <i data-lucide="wand-2" class="w-6 h-6 text-indigo-600"></i> מחולל הפרומפטים
+                <div class="p-8 lg:w-1/2 border-l border-slate-700">
+                    <h2 class="text-2xl font-bold text-slate-100 mb-6 flex items-center gap-2">
+                        <i data-lucide="wand-2" class="w-6 h-6 text-rose-400"></i> מחולל הפרומפטים
                     </h2>
                     
                     <div class="space-y-5 text-right">
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1">שם הבוט / הדמות:</label>
-                            <input type="text" id="botName" placeholder="למשל: יועץ פדגוגי, שרלוק, המורה אריאל" class="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-right shadow-sm" />
+                            <label class="block text-sm font-semibold text-slate-300 mb-1">שם הבוט / הדמות:</label>
+                            <input type="text" id="botName" placeholder="למשל: יועץ פדגוגי, שרלוק, המורה אריאל" class="w-full p-3 bg-slate-900 border border-slate-600 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none text-white shadow-sm placeholder-slate-500" />
                         </div>
               
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-semibold text-slate-700 mb-1">קהל יעד:</label>
-                                <select id="audience" class="w-full p-3 border border-slate-300 rounded-lg text-right outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm">
+                                <label class="block text-sm font-semibold text-slate-300 mb-1">קהל יעד:</label>
+                                <select id="audience" class="w-full p-3 bg-slate-900 border border-slate-600 rounded-lg text-white outline-none focus:ring-2 focus:ring-teal-500 shadow-sm">
                                     <option value="מורים">מורים</option>
                                     <option value="תלמידי יסודי">תלמידי יסודי</option>
                                     <option value="תלמידי תיכון">תלמידי תיכון</option>
@@ -132,8 +151,8 @@
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-sm font-semibold text-slate-700 mb-1">טון אישיות:</label>
-                                <select id="personaTone" class="w-full p-3 border border-slate-300 rounded-lg text-right outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm">
+                                <label class="block text-sm font-semibold text-slate-300 mb-1">טון אישיות:</label>
+                                <select id="personaTone" class="w-full p-3 bg-slate-900 border border-slate-600 rounded-lg text-white outline-none focus:ring-2 focus:ring-teal-500 shadow-sm">
                                     <option value="מקצועי ומעצים">מקצועי ומעצים</option>
                                     <option value="סוקרטי (שואל שאלות)">סוקרטי (שואל שאלות)</option>
                                     <option value="הומוריסטי וקליל">הומוריסטי וקליל</option>
@@ -143,60 +162,60 @@
                         </div>
               
                         <div class="pt-2">
-                            <h3 class="text-sm font-semibold text-slate-700 mb-2">אילו מצבי פעולה (Modes) לשלב?</h3>
+                            <h3 class="text-sm font-semibold text-slate-300 mb-2">אילו מצבי פעולה (Modes) לשלב?</h3>
                             <div class="space-y-2">
-                                <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-slate-200 rounded-md transition-colors justify-start flex-row-reverse">
-                                    <span class="text-slate-700">שיח ושאלות רגילות (#שיח)</span>
-                                    <input type="checkbox" id="chkChat" checked class="w-4 h-4 text-indigo-600 rounded" />
+                                <label class="flex items-center gap-3 cursor-pointer p-2 bg-slate-800 hover:bg-slate-700 rounded-md transition-colors justify-start flex-row-reverse border border-slate-700">
+                                    <span class="text-slate-300">שיח ושאלות רגילות (#שיח)</span>
+                                    <input type="checkbox" id="chkChat" checked class="w-4 h-4 text-teal-500 bg-slate-900 border-slate-600 rounded focus:ring-teal-500 focus:ring-offset-slate-800" />
                                 </label>
-                                <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-slate-200 rounded-md transition-colors justify-start flex-row-reverse">
-                                    <span class="text-slate-700">תכנון מערכי שיעור (#שיעור)</span>
-                                    <input type="checkbox" id="chkLesson" class="w-4 h-4 text-indigo-600 rounded" />
+                                <label class="flex items-center gap-3 cursor-pointer p-2 bg-slate-800 hover:bg-slate-700 rounded-md transition-colors justify-start flex-row-reverse border border-slate-700">
+                                    <span class="text-slate-300">תכנון מערכי שיעור (#שיעור)</span>
+                                    <input type="checkbox" id="chkLesson" class="w-4 h-4 text-teal-500 bg-slate-900 border-slate-600 rounded focus:ring-teal-500 focus:ring-offset-slate-800" />
                                 </label>
-                                <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-slate-200 rounded-md transition-colors justify-start flex-row-reverse">
-                                    <span class="text-slate-700">בוחן אינטראקטיבי (#מבחן)</span>
-                                    <input type="checkbox" id="chkQuiz" class="w-4 h-4 text-indigo-600 rounded" />
+                                <label class="flex items-center gap-3 cursor-pointer p-2 bg-slate-800 hover:bg-slate-700 rounded-md transition-colors justify-start flex-row-reverse border border-slate-700">
+                                    <span class="text-slate-300">בוחן אינטראקטיבי (#מבחן)</span>
+                                    <input type="checkbox" id="chkQuiz" class="w-4 h-4 text-teal-500 bg-slate-900 border-slate-600 rounded focus:ring-teal-500 focus:ring-offset-slate-800" />
                                 </label>
                             </div>
                         </div>
               
-                        <div class="pt-2 border-t border-slate-200">
-                            <label class="flex items-center justify-between cursor-pointer p-2 bg-indigo-50 rounded-md mb-2 flex-row-reverse">
-                                <span class="font-semibold text-indigo-900">אילוץ: למידה שלב-אחר-שלב 🛑</span>
-                                <input type="checkbox" id="chkStepByStep" checked class="w-5 h-5 text-indigo-600 rounded border-indigo-300" />
+                        <div class="pt-2 border-t border-slate-700">
+                            <label class="flex items-center justify-between cursor-pointer p-3 bg-teal-900/20 rounded-md mb-2 flex-row-reverse border border-teal-500/20">
+                                <span class="font-semibold text-teal-400">אילוץ: למידה שלב-אחר-שלב 🛑</span>
+                                <input type="checkbox" id="chkStepByStep" checked class="w-5 h-5 text-teal-500 bg-slate-900 border-teal-500/50 rounded focus:ring-teal-500 focus:ring-offset-slate-800" />
                             </label>
-                            <label class="flex items-center justify-between cursor-pointer p-2 bg-indigo-50 rounded-md flex-row-reverse">
-                                <span class="font-semibold text-indigo-900">הצג תפריט פתיחה וניווט 📋</span>
-                                <input type="checkbox" id="chkMenu" checked class="w-5 h-5 text-indigo-600 rounded border-indigo-300" />
+                            <label class="flex items-center justify-between cursor-pointer p-3 bg-teal-900/20 rounded-md flex-row-reverse border border-teal-500/20">
+                                <span class="font-semibold text-teal-400">הצג תפריט פתיחה וניווט 📋</span>
+                                <input type="checkbox" id="chkMenu" checked class="w-5 h-5 text-teal-500 bg-slate-900 border-teal-500/50 rounded focus:ring-teal-500 focus:ring-offset-slate-800" />
                             </label>
                         </div>
               
-                        <button onclick="generatePrompt()" class="w-full mt-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition-transform transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2">
-                            <i data-lucide="wand-2" class="w-5 h-5"></i> צור פרומפט עכשיו
+                        <button onclick="generatePrompt()" class="w-full mt-4 bg-rose-600 hover:bg-rose-500 text-white font-bold py-3 px-6 rounded-xl shadow-lg shadow-rose-600/20 transition-transform transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2">
+                            <i data-lucide="sparkles" class="w-5 h-5"></i> צור פרומפט עכשיו
                         </button>
                     </div>
                 </div>
               
                 <!-- Output Area -->
-                <div class="p-8 lg:w-1/2 bg-slate-900 text-slate-200 relative flex flex-col">
+                <div class="p-8 lg:w-1/2 bg-slate-950 text-slate-200 relative flex flex-col">
                     <div class="flex items-center justify-between mb-4 flex-row-reverse">
-                        <h2 class="text-xl font-bold text-indigo-300 flex items-center gap-2 flex-row-reverse">
+                        <h2 class="text-xl font-bold text-teal-400 flex items-center gap-2 flex-row-reverse">
                             <i data-lucide="code-2" class="w-5 h-5"></i> התוצאה שלך:
                         </h2>
-                        <button id="copyPromptBtn" onclick="copyGeneratedPrompt()" class="hidden flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-slate-700 hover:bg-slate-600 text-white">
+                        <button id="copyPromptBtn" onclick="copyGeneratedPrompt()" class="hidden flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-teal-600/20 hover:bg-teal-600/40 text-teal-300 border border-teal-500/30">
                             <i data-lucide="copy" class="w-4 h-4 icon-copy"></i>
-                            <i data-lucide="check" class="w-4 h-4 icon-check hidden text-green-400"></i>
+                            <i data-lucide="check" class="w-4 h-4 icon-check hidden text-teal-400"></i>
                             <span id="copyPromptText">העתק טקסט</span>
                         </button>
                     </div>
               
-                    <div class="flex-grow bg-slate-800 rounded-xl p-4 border border-slate-700 overflow-y-auto">
+                    <div class="flex-grow bg-slate-900 rounded-xl p-4 border border-slate-800 overflow-y-auto">
                         <pre id="promptOutput" class="hidden text-slate-300 whitespace-pre-wrap font-mono text-sm text-right leading-relaxed" dir="rtl"></pre>
                         
                         <div id="emptyState" class="h-full flex flex-col items-center justify-center text-slate-500 opacity-60">
-                            <i data-lucide="wand-2" class="w-12 h-12 mb-3"></i>
+                            <i data-lucide="wand-2" class="w-12 h-12 mb-3 text-slate-600"></i>
                             <p>מלא את הטופס מימין ולחץ על "צור פרומפט"</p>
-                            <p class="text-sm mt-2">הפרומפט שייווצר יתאים להדבקה ב-NotebookLM</p>
+                            <p class="text-sm mt-2 text-slate-600">הפרומפט שייווצר יתאים להדבקה ב-NotebookLM</p>
                         </div>
                     </div>
                 </div>
@@ -206,8 +225,8 @@
         <!-- TAB 3: EXAMPLES -->
         <div id="tab-examples" class="tab-content animation-fade-in hidden space-y-8">
             <div class="text-center mb-8">
-                <h2 class="text-3xl font-bold text-slate-800 mb-4">פרומפטים להשראה</h2>
-                <p class="text-lg text-slate-600 max-w-3xl mx-auto">
+                <h2 class="text-3xl font-bold text-slate-100 mb-4">פרומפטים להשראה</h2>
+                <p class="text-lg text-slate-400 max-w-3xl mx-auto">
                     דוגמאות אמיתיות מתוך מאגר חומרי הלמידה שלכם. ניתן להעתיק, ללמוד מהמבנה, ולשפר.
                 </p>
             </div>
@@ -220,17 +239,16 @@
         <!-- TAB 4: PRESENTATION -->
         <div id="tab-presentation" class="tab-content animation-fade-in hidden space-y-8">
             <div class="text-center mb-8">
-                <h2 class="text-3xl font-bold text-slate-800 mb-4">8 העקרונות לבניית בוט חכם</h2>
-                <p class="text-lg text-slate-600 max-w-3xl mx-auto mb-4">
+                <h2 class="text-3xl font-bold text-slate-100 mb-4">8 העקרונות לבניית בוט חכם</h2>
+                <p class="text-lg text-slate-400 max-w-3xl mx-auto mb-4">
                     המצגת המלאה זמינה לעיונך ישירות כאן באתר. תוכל לדפדף בין השקפים בתוך המסגרת.
                 </p>
-                <a href="https://www.canva.com/design/DAHPDOaND8w/7nZl2d_rD0ZDuE1rfFHZ3Q/view" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-800 font-medium bg-indigo-50 px-4 py-2 rounded-lg transition-colors">
+                <a href="https://www.canva.com/design/DAHPDOaND8w/7nZl2d_rD0ZDuE1rfFHZ3Q/view" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-rose-400 hover:text-rose-300 font-medium bg-rose-500/10 border border-rose-500/20 px-4 py-2 rounded-lg transition-colors">
                     <i data-lucide="external-link" class="w-4 h-4"></i> פתח מצגת בחלון מלא
                 </a>
             </div>
             
-            <div class="bg-white p-2 rounded-2xl shadow-xl border border-slate-200 w-full max-w-4xl mx-auto">
-                <!-- יחס גובה-רוחב 16:9 רספונסיבי -->
+            <div class="bg-slate-800 p-2 rounded-2xl shadow-xl border border-slate-700 w-full max-w-4xl mx-auto">
                 <div style="position: relative; width: 100%; height: 0; padding-top: 56.25%; overflow: hidden; border-radius: 12px;">
                     <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0;"
                         src="https://www.canva.com/design/DAHPDOaND8w/7nZl2d_rD0ZDuE1rfFHZ3Q/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
@@ -242,7 +260,7 @@
     </main>
 
     <!-- Footer Area -->
-    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-sm border-t-4 border-indigo-600 shadow-inner mt-auto">
+    <footer class="bg-slate-950 text-slate-500 py-8 text-center text-sm border-t border-slate-800 mt-auto">
         <div class="max-w-4xl mx-auto px-4">
             <p class="mb-2 font-medium">
                 כל הזכויות שמורות לאריאל קלפנר - בינה מלאכותית, טכנופדגוגיה והערכה בחינוך - 0509540538 © <span id="currentYear"></span>
@@ -376,61 +394,60 @@ CONSTRAINTS:
             }
         ];
 
-        // Render Principles
+        // Render Principles (Dark Mode styles)
         const principlesContainer = document.getElementById('principles-container');
         principles.forEach(p => {
             const card = document.createElement('div');
-            card.className = 'border border-slate-200 rounded-xl overflow-hidden mb-4 bg-white shadow-sm transition-all duration-200 hover:shadow-md';
+            card.className = 'border border-slate-700 rounded-xl overflow-hidden mb-4 bg-slate-800 shadow-sm transition-all duration-200 hover:shadow-md hover:border-slate-600';
             card.innerHTML = `
-                <button onclick="toggleAccordion(this)" class="w-full flex items-center justify-between p-5 text-right bg-white hover:bg-slate-50 focus:outline-none">
+                <button onclick="toggleAccordion(this)" class="w-full flex items-center justify-between p-5 text-right bg-slate-800 hover:bg-slate-700 focus:outline-none">
                     <div class="flex items-center gap-4">
-                        <div class="p-3 bg-indigo-50 rounded-lg shrink-0">
-                            <i data-lucide="${p.icon}" class="w-6 h-6 text-indigo-500"></i>
+                        <div class="p-3 bg-teal-500/10 rounded-lg shrink-0 border border-teal-500/20">
+                            <i data-lucide="${p.icon}" class="w-6 h-6 text-teal-400"></i>
                         </div>
                         <div>
-                            <h3 class="text-xl font-bold text-slate-800 text-right">${p.id}. ${p.title}</h3>
+                            <h3 class="text-xl font-bold text-slate-100 text-right">${p.id}. ${p.title}</h3>
                         </div>
                     </div>
-                    <i data-lucide="chevron-down" class="w-5 h-5 text-slate-500 accordion-icon-down"></i>
-                    <i data-lucide="chevron-up" class="w-5 h-5 text-slate-500 accordion-icon-up hidden"></i>
+                    <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 accordion-icon-down"></i>
+                    <i data-lucide="chevron-up" class="w-5 h-5 text-slate-400 accordion-icon-up hidden"></i>
                 </button>
-                <div class="accordion-content hidden p-5 border-t border-slate-100 bg-slate-50 text-right">
-                    <p class="text-slate-700 mb-4 text-lg leading-relaxed">${p.description}</p>
-                    <div class="bg-white rounded-lg p-4 border border-indigo-100 mb-4 shadow-sm">
-                        <h4 class="font-semibold text-indigo-700 mb-2 flex items-center gap-2 justify-end flex-row-reverse">
+                <div class="accordion-content hidden p-5 border-t border-slate-700 bg-slate-800/50 text-right">
+                    <p class="text-slate-300 mb-4 text-lg leading-relaxed">${p.description}</p>
+                    <div class="bg-slate-700/50 rounded-lg p-4 border border-teal-500/30 mb-4 shadow-sm">
+                        <h4 class="font-semibold text-teal-400 mb-2 flex items-center gap-2 justify-end flex-row-reverse">
                             <i data-lucide="graduation-cap" class="w-5 h-5"></i> הערך הפדגוגי
                         </h4>
-                        <p class="text-slate-600 leading-relaxed">${p.pedagogicalValue}</p>
+                        <p class="text-slate-300 leading-relaxed">${p.pedagogicalValue}</p>
                     </div>
-                    <div class="bg-slate-800 text-slate-200 rounded-lg p-4 font-mono text-sm shadow-inner" dir="rtl">
-                        <h4 class="text-slate-400 mb-2 font-sans text-xs uppercase tracking-wider flex flex-row-reverse justify-end">דוגמה מפרומפט המקור:</h4>
-                        <p class="leading-relaxed whitespace-pre-line text-right border-r-2 border-indigo-500 pr-3">${p.example}</p>
+                    <div class="bg-slate-900 text-slate-300 rounded-lg p-4 font-mono text-sm shadow-inner border border-slate-700" dir="rtl">
+                        <h4 class="text-slate-500 mb-2 font-sans text-xs uppercase tracking-wider flex flex-row-reverse justify-end">דוגמה מפרומפט המקור:</h4>
+                        <p class="leading-relaxed whitespace-pre-line text-right border-r-2 border-rose-500 pr-3">${p.example}</p>
                     </div>
                 </div>
             `;
             principlesContainer.appendChild(card);
         });
 
-        // Render Examples
+        // Render Examples (Dark Mode styles)
         const examplesContainer = document.getElementById('examples-container');
         examples.forEach(ex => {
             const wrapper = document.createElement('div');
-            wrapper.className = 'bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden text-right';
+            wrapper.className = 'bg-slate-800 rounded-2xl shadow-md border border-slate-700 overflow-hidden text-right';
             
-            // Note: Using a safe id for the text content to be copied
             const contentId = `example-content-${ex.id}`;
             
             wrapper.innerHTML = `
-                <div class="bg-slate-100 p-4 border-b border-slate-200 flex justify-between items-center">
-                    <h3 class="font-bold text-lg text-slate-800 flex items-center gap-2">
-                        <i data-lucide="code-2" class="w-5 h-5 text-indigo-600"></i> ${ex.title}
+                <div class="bg-slate-900 p-4 border-b border-slate-700 flex justify-between items-center">
+                    <h3 class="font-bold text-lg text-slate-100 flex items-center gap-2">
+                        <i data-lucide="code-2" class="w-5 h-5 text-rose-400"></i> ${ex.title}
                     </h3>
-                    <button onclick="copyTextById('${contentId}', this)" class="text-sm font-medium text-indigo-600 hover:text-indigo-800 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors">
+                    <button onclick="copyTextById('${contentId}', this)" class="text-sm font-medium text-teal-400 hover:text-teal-300 bg-teal-500/10 hover:bg-teal-500/20 border border-teal-500/20 px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors">
                         <i data-lucide="copy" class="w-4 h-4"></i> <span class="copy-label">העתק טקסט</span>
                     </button>
                 </div>
                 <div class="p-0">
-                    <pre id="${contentId}" class="bg-slate-800 text-slate-300 p-6 font-mono text-sm overflow-x-auto text-right whitespace-pre-wrap leading-relaxed" dir="rtl">${ex.content}</pre>
+                    <pre id="${contentId}" class="bg-slate-950 text-slate-300 p-6 font-mono text-sm overflow-x-auto text-right whitespace-pre-wrap leading-relaxed" dir="rtl">${ex.content}</pre>
                 </div>
             `;
             examplesContainer.appendChild(wrapper);
@@ -439,14 +456,14 @@ CONSTRAINTS:
         // Initialize Icons
         lucide.createIcons();
 
-        // Tab Switching Logic
+        // Tab Switching Logic (Updated for Dark Mode and Home tab)
         function switchTab(tabId) {
             // Hide all contents
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             
-            // Reset button styles
+            // Reset button styles to inactive state
             document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.className = "tab-btn flex-1 py-3 px-4 rounded-xl flex items-center justify-center gap-2 font-bold transition-all text-sm md:text-base text-slate-500 hover:bg-slate-50 hover:text-slate-700";
+                btn.className = "tab-btn flex-1 py-3 px-4 rounded-xl flex items-center justify-center gap-2 font-bold transition-all text-sm md:text-base text-slate-400 hover:bg-slate-700 hover:text-slate-200 border border-transparent";
             });
 
             // Show selected content
@@ -454,7 +471,7 @@ CONSTRAINTS:
             
             // Highlight selected button
             const activeBtn = document.getElementById(`btn-${tabId}`);
-            activeBtn.className = "tab-btn flex-1 py-3 px-4 rounded-xl flex items-center justify-center gap-2 font-bold transition-all text-sm md:text-base bg-indigo-100 text-indigo-700 shadow-sm";
+            activeBtn.className = "tab-btn flex-1 py-3 px-4 rounded-xl flex items-center justify-center gap-2 font-bold transition-all text-sm md:text-base bg-rose-500/20 text-rose-400 shadow-sm border border-rose-500/30";
         }
 
         // Accordion Logic
@@ -535,7 +552,7 @@ CONSTRAINTS:
             copyToClipboardRaw(text, btnElement, null, labelEl);
         }
 
-        // Core Copy Function (uses textarea fallback for iframe support)
+        // Core Copy Function
         function copyToClipboardRaw(text, btnElement, textElementId = null, labelEl = null) {
             const textArea = document.createElement("textarea");
             textArea.value = text;
@@ -548,8 +565,11 @@ CONSTRAINTS:
                 // Visual feedback
                 if (textElementId) {
                     document.getElementById(textElementId).textContent = "הועתק!";
-                    btnElement.classList.replace('bg-slate-700', 'bg-green-500/20');
-                    btnElement.classList.replace('text-white', 'text-green-400');
+                    // btnElement styling for prompt builder
+                    btnElement.classList.replace('bg-teal-600/20', 'bg-green-500/20');
+                    btnElement.classList.replace('hover:bg-teal-600/40', 'hover:bg-green-500/30');
+                    btnElement.classList.replace('text-teal-300', 'text-green-400');
+                    btnElement.classList.replace('border-teal-500/30', 'border-green-500/30');
                     btnElement.querySelector('.icon-copy').classList.add('hidden');
                     btnElement.querySelector('.icon-check').classList.remove('hidden');
                 } else if (labelEl) {
@@ -559,8 +579,10 @@ CONSTRAINTS:
                 setTimeout(() => {
                     if (textElementId) {
                         document.getElementById(textElementId).textContent = "העתק טקסט";
-                        btnElement.classList.replace('bg-green-500/20', 'bg-slate-700');
-                        btnElement.classList.replace('text-green-400', 'text-white');
+                        btnElement.classList.replace('bg-green-500/20', 'bg-teal-600/20');
+                        btnElement.classList.replace('hover:bg-green-500/30', 'hover:bg-teal-600/40');
+                        btnElement.classList.replace('text-green-400', 'text-teal-300');
+                        btnElement.classList.replace('border-green-500/30', 'border-teal-500/30');
                         btnElement.querySelector('.icon-copy').classList.remove('hidden');
                         btnElement.querySelector('.icon-check').classList.add('hidden');
                     } else if (labelEl) {
